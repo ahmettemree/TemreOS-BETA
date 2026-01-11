@@ -2,25 +2,32 @@ const demo = document.getElementById("appDemo");
 const icons = document.querySelectorAll(".appIcon");
 
 function openApp(name) {
-    demo.style.display = "block";
+    demo.classList.add("show");
     icons.forEach(i => i.style.display = "none");
     console.log(name + " açıldı");
 }
 
 function closeApp() {
-    demo.style.display = "none";
-    icons.forEach(i => i.style.display = "flex");
+    demo.classList.remove("show");
+    setTimeout(() => icons.forEach(i => i.style.display = "flex"), 250);
 }
 
 function notifyCmd(cmd) {
-    if(cmd === "Bildirim") {
-        alert("Bildirim geldi!");
-    } else if(cmd === "Geri") {
-        alert("Geri tuşuna basıldı");
-    } else if(cmd === "Aç") {
-        openApp('Demo App');
-    } else if(cmd === "Kapat") {
-        closeApp();
+    switch(cmd) {
+        case "Bildirim":
+            alert("Bildirim geldi!");
+            break;
+        case "Geri":
+            alert("Geri tuşuna basıldı");
+            break;
+        case "Aç":
+            openApp('Demo App');
+            break;
+        case "Kapat":
+            closeApp();
+            break;
+        default:
+            console.log("Bilinmeyen komut:", cmd);
     }
     console.log("Komut çalıştı:", cmd);
 }
