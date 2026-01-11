@@ -1,8 +1,10 @@
-function updateClock() {
-  const now = new Date();
-  const timeStr = now.toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'});
-  // Status bar'da da saat göster (senin gibi)
-  document.querySelector('.status-bar').innerHTML = `${timeStr} WiFi VoLTE %55 🔋`;
-}
-setInterval(updateClock, 1000);
-updateClock();
+// ===== REALME UI WEBSITE - MAIN SCRIPT =====
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Realme UI Website Loaded');
+    
+    // ===== VARIABLES =====
+    const loader = document.getElementById('loader');
+    const themeToggle = document.getElementById('themeToggle');
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link
