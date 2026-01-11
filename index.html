@@ -1,6 +1,37 @@
-<div class="app-grid">
-    <div class="app-icon">⚙️<br>Ayarlar</div>
-    <div class="app-icon">📸<br>Kamera</div>
-    <div class="app-icon">📞<br>Telefon</div>
-    <div class="app-icon">💬<br>Mesaj</div>
-</div>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Origin OS Web - Liquid Glass Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Dynamic Island / Notch -->
+  <div class="dynamic-island">
+    <div class="time">18:88</div>
+    <div class="status">5G • 69% 🔋</div>
+  </div>
+
+  <!-- Ana Ekran - Atomic Widget Grid -->
+  <div class="home-screen">
+    <div class="atomic-grid">
+      <div class="widget large glass">Hava<br><span>12°C Güneşli ☀️</span></div>
+      <div class="widget medium glass">Müzik<br>Şimdi Çalıyor: Tost Satış Şarkısı</div>
+      <div class="app glass"><img src="https://via.placeholder.com/100?text=Kamera" alt=""><span>Kamera</span></div>
+      <div class="app glass"><img src="https://via.placeholder.com/100?text=Galeri" alt=""><span>Galeri</span></div>
+      <div class="widget small glass">Takvim<br>11 Ocak 2026</div>
+      <!-- Daha fazla ekle: 4-5 sütun yap, sürükle-bırak için JS ekleyebilirsin sonra -->
+    </div>
+  </div>
+
+  <!-- Dock - Liquid Glass -->
+  <div class="dock glass">
+    <div class="dock-item">📞</div>
+    <div class="dock-item">💬</div>
+    <div class="dock-item">🌐</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
