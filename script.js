@@ -120,18 +120,19 @@ function toggleTheme() {
     localStorage.setItem('theme', newTheme);
 }
 
+// YENİSİ (garanti çalışan):
 function lockScreen() {
+    console.log("Kilitle butonuna tıklandı!");
+    
     const lockScreen = document.getElementById('lockScreen');
     const homeScreen = document.getElementById('homeScreen');
     
-    homeScreen.classList.remove('active');
-    lockScreen.classList.add('active');
+    // 1. Önce tüm açık uygulamaları kapat
+    document.querySelectorAll('.app-window').forEach(app => {
+        app.classList.remove('active');
+        app.style.transform = 'translateY(100%)';
+    });
     
-    lockScreen.style.opacity = '1';
-    lockScreen.style.transform = 'translateY(0)';
-    
-    sessionStorage.removeItem('unlocked');
-}
 
 function refreshPage() {
     location.reload();
