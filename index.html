@@ -1,96 +1,169 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Realme Web OS</title>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-  <!-- Status Bar -->
-  <header class="status-bar">
-    <span>Realme Web OS</span>
-    <span id="clock"></span>
-  </header>
-
-  <!-- Home -->
-  <main class="home">
-    <div class="app" onclick="openApp()">⚙️<span>Ayarlar</span></div>
-    <div class="app" onclick="openApp()">🌐<span>Tarayıcı</span></div>
-    <div class="app" onclick="openApp()">📁<span>Dosyalar</span></div>
-    <div class="app" onclick="openApp()">📷<span>Kamera</span></div>
-  </main>
-
-  <!-- Dock -->
-  <footer class="dock">
-    <button onclick="openApp()">📞</button>
-    <button onclick="openApp()">💬</button>
-    <button onclick="openApp()">🌍</button>
-  </footer>
-
-  <!-- App Window -->
-  <div id="appWindow" class="app-window hidden">
-    <div class="app-header">
-      <span>Uygulama</span>
-      <button onclick="closeApp()">✕</button>
-    </div>
-    <div class="app-content">
-      <p>Bu bir demo uygulamadır.</p>
-    </div>
-  </div>
-
-  <!-- JS -->
-  <script src="script.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="tr">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gesture Bar Demo</title>
+<title>Demo Site</title>
 <style>
-  body { margin: 0; font-family: sans-serif; background: #f0f0f0; }
-  #gestureBar {
+  /* Genel */
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #f0f0f0;
+    overflow-x: hidden;
+  }
+
+  /* Üst kısım */
+  header {
     position: fixed;
-    bottom: 0;
-    left: 0;
+    top: 0;
     width: 100%;
+    height: 50px;
     background: #222;
     color: #fff;
     display: flex;
-    justify-content: space-around;
-    padding: 15px 0;
+    align-items: center;
+    padding: 0 15px;
     z-index: 1000;
+    font-weight: 500;
   }
-  .gestureBtn {
+
+  /* Uygulama ikonları */
+  .appGrid {
+    margin-top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 80px; /* gesture bar için boşluk */
+  }
+  .appIcon {
+    width: 80px;
+    height: 80px;
+    background: #555;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
     cursor: pointer;
-    padding: 10px 20px;
-    background: #444;
-    border-radius: 10px;
-    transition: background 0.2s;
+    font-size: 12px;
+    user-select: none;
+    transition: transform 0.2s;
   }
-  .gestureBtn:hover {
-    background: #666;
+  .appIcon:hover {
+    transform: scale(1.1);
+  }
+
+  /* Demo uygulama ekranı */
+  #appDemo {
+    display: none;
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    height: 60%;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 15px;
+    z-index: 900;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    animation: openAnim 0.3s ease forwards;
+  }
+  @keyframes openAnim {
+    from { transform: translateX(-50%) scale(0.7); opacity: 0; }
+    to { transform: translateX(-50%) scale(1); opacity: 1; }
+  }
+
+  #appDemo h2 {
+    margin-top: 10px;
+  }
+  #appDemo p {
+    margin-top: 10px;
+    font-weight: bold;
+    color: red;
+  }
+
+  /* Demo uygulama kapatma butonu */
+  #appDemo button {
+    margin-top: 20px;
+    padding: 8px 16px;
+    border: none;
+    background: #222;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  #appDemo button:hover {
+    background: #444;
+  }
+
+  /* Gesture Bar (iOS tarzı) */
+  #gestureBar {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 6px;
+    background: #aaa;
+    border-radius: 3px;
+    z-index: 1000;
   }
 </style>
 </head>
 <body>
 
-<div id="gestureBar">
-  <div class="gestureBtn" onclick="gestureCommand('Aç')">Aç</div>
-  <div class="gestureBtn" onclick="gestureCommand('Kapat')">Kapat</div>
-  <div class="gestureBtn" onclick="gestureCommand('Bildirim')">Bildirim</div>
-  <div class="gestureBtn" onclick="gestureCommand('Geri')">Geri</div>
+<header>
+  Demo Site
+</header>
+
+<div class="appGrid">
+  <div class="appIcon" onclick="openApp('Demo Uygulama')">Demo App</div>
+  <div class="appIcon" onclick="gestureCommand('Bildirim')">Bildirim</div>
+  <div class="appIcon" onclick="gestureCommand('Geri')">Geri</div>
 </div>
 
+<div id="appDemo">
+  <h2>Bu bir demo uygulamadır</h2>
+  <p>Beta</p>
+  <button onclick="gestureCommand('Kapat')">Kapat</button>
+</div>
+
+<div id="gestureBar"></div>
+
 <script>
+  const appDemo = document.getElementById('appDemo');
+  const icons = document.querySelectorAll('.appIcon');
+
+  function openApp(name) {
+    appDemo.style.display = 'block';
+    icons.forEach(icon => icon.style.display = 'none');
+    console.log(name + " açıldı");
+  }
+
   function gestureCommand(cmd) {
     console.log("Gesture bar komutu:", cmd);
-    alert("Komut verildi: " + cmd); // test için
+
+    if(cmd === "Kapat") {
+      appDemo.style.display = 'none';
+      icons.forEach(icon => icon.style.display = 'flex');
+    }
+    if(cmd === "Bildirim") {
+      alert("Bildirim geldi!");
+    }
+    if(cmd === "Geri") {
+      console.log("Geri komutu çalıştı");
+      alert("Geri tuşu basıldı");
+    }
+    if(cmd === "Aç") {
+      openApp('Demo Uygulama');
+    }
   }
 </script>
 
