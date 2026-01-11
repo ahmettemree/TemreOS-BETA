@@ -1,3 +1,29 @@
+// OTOMATİK AÇ
+window.addEventListener('load', function() {
+    console.log("SAYFA YÜKLENDİ - OTOMATİK AÇILIYOR");
+    
+    // 3 saniye sonra otomatik aç
+    setTimeout(function() {
+        console.log("OTOMATİK AÇILIYOR...");
+        
+        // Kilit ekranını gizle
+        var lock = document.getElementById('lockScreen');
+        var home = document.getElementById('homeScreen');
+        
+        if (lock && home) {
+            lock.style.display = 'none';
+            lock.style.opacity = '0';
+            lock.style.transform = 'translateY(-100%)';
+            
+            home.style.display = 'flex';
+            home.style.opacity = '1';
+            home.style.transform = 'translateY(0)';
+            
+            console.log("BAŞARIYLA AÇILDI!");
+            alert("TELEFON AÇILDI!");
+        }
+    }, 3000);
+});
 // BASİT VE GARANTİ ÇÖZÜM
 console.log("Realme UI Simulator Yüklendi");
 
