@@ -1,30 +1,14 @@
-document.querySelectorAll('.app-icon').forEach(icon => {
-    icon.addEventListener('click', () => {
-        // Tıklama efekti
-        icon.style.transform = "scale(0.9)";
-        
-        setTimeout(() => {
-            icon.style.transform = "scale(1)";
-            // Uygulama ismini al ve kullanıcıya göster
-            const appName = icon.innerText.replace(/[^\w\sğüşıöçĞÜŞİÖÇ]/g, '').trim();
-            console.log(appName + " başlatılıyor...");
-            alert(appName + " Realme UI üzerinde açılıyor!");
-        }, 150);
-    });
+document.querySelectorAll('.glass').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    el.style.transform = 'scale(1.08) translateY(-6px)';
+    el.style.boxShadow = '0 20px 80px rgba(0,0,0,0.6)';
+  });
+  el.addEventListener('mouseleave', () => {
+    el.style.transform = 'scale(1)';
+    el.style.boxShadow = '0 12px 50px rgba(0,0,0,0.5)';
+  });
+  el.addEventListener('click', () => {
+    el.style.transform = 'scale(0.92)';
+    setTimeout(() => el.style.transform = 'scale(1)', 200);
+  });
 });
-
-// Durum çubuğu saatini güncelleme (Gerçek zamanlı)
-function updateClock() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const timeString = `${hours}:${minutes}`;
-    
-    const statusBar = document.querySelector('.status-bar');
-    if (statusBar) {
-        statusBar.innerHTML = `<span>${timeString}</span> <span>🔋 100%</span>`;
-    }
-}
-
-setInterval(updateClock, 1000);
-updateClock();
