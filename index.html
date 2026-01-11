@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realme UI Demo</title>
+    <title>Realme UI Android Simülatörü</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -11,26 +11,41 @@
 <body>
     <!-- Android Simülatörü -->
     <div class="android-simulator">
-        <!-- Kilit Ekranı -->
+        <!-- KİLİT EKRANI -->
         <div class="lock-screen active" id="lockScreen">
             <div class="lock-time">23:24</div>
             <div class="lock-date">Çarşamba, 12 Nisan</div>
+            
             <div class="lock-notifications">
                 <div class="notification">
                     <i class="fas fa-bell"></i>
                     <span>Soma yine gel!</span>
                 </div>
             </div>
-            <div class="unlock-hint">
-                <i class="fas fa-arrow-up"></i>
-                <span>Yukarı kaydırarak kilidi aç</span>
-            </div>
-            <div class="lock-bottom">
-                <i class="fas fa-unlock"></i>
+            
+            <!-- PARMAK İZİ İLE AÇMA -->
+            <div class="unlock-area">
+                <div class="fingerprint-hint">
+                    <i class="fas fa-fingerprint"></i>
+                    <span>Parmak izi ile aç</span>
+                </div>
+                
+                <div class="fingerprint-circle" id="fingerprintBtn">
+                    <div class="fingerprint-icon">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <div class="fingerprint-ring"></div>
+                    <div class="fingerprint-progress"></div>
+                </div>
+                
+                <div class="unlock-alternative">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>veya yukarı kaydır</span>
+                </div>
             </div>
         </div>
 
-        <!-- Ana Ekran -->
+        <!-- ANA EKRAN -->
         <div class="home-screen" id="homeScreen">
             <!-- Status Bar -->
             <div class="status-bar">
@@ -54,9 +69,9 @@
                 </div>
             </div>
 
-            <!-- Uygulama Grid'i (Fotodaki gibi) -->
+            <!-- UYGULAMA GRİD'İ (FOTOĞRAFTAN AYNEN) -->
             <div class="app-grid">
-                <!-- 1. Satır -->
+                <!-- 1. SATIR -->
                 <div class="app-folder" onclick="openFolder('Settings')">
                     <div class="folder-icon">
                         <i class="fas fa-cog"></i>
@@ -73,7 +88,7 @@
                     <span>Productiv...</span>
                 </div>
 
-                <!-- 2. Satır -->
+                <!-- 2. SATIR -->
                 <div class="app" onclick="openApp('Games')">
                     <i class="fas fa-gamepad"></i>
                     <span>Games</span>
@@ -87,7 +102,7 @@
                     <span>Play Store</span>
                 </div>
 
-                <!-- 3. Satır -->
+                <!-- 3. SATIR -->
                 <div class="app" onclick="openApp('Weather')">
                     <i class="fas fa-cloud-sun"></i>
                     <span>Hava dur...</span>
@@ -101,7 +116,7 @@
                     <span>Chrome ...</span>
                 </div>
 
-                <!-- 4. Satır -->
+                <!-- 4. SATIR -->
                 <div class="app" onclick="openApp('Fazilet')">
                     <i class="fas fa-book"></i>
                     <span>Fazilet...</span>
@@ -115,7 +130,7 @@
                     <span>Proton V...</span>
                 </div>
 
-                <!-- 5. Satır -->
+                <!-- 5. SATIR -->
                 <div class="app" onclick="openApp('Files')">
                     <i class="fas fa-folder"></i>
                     <span>Files</span>
@@ -130,7 +145,7 @@
                 </div>
             </div>
 
-            <!-- Dock -->
+            <!-- DOCK -->
             <div class="app-dock">
                 <div class="dock-app" onclick="openApp('Phone')">
                     <i class="fas fa-phone"></i>
@@ -147,7 +162,7 @@
             </div>
         </div>
 
-        <!-- Ayarlar Uygulaması -->
+        <!-- AYARLAR UYGULAMASI -->
         <div class="app-window" id="settingsApp">
             <div class="app-header">
                 <button class="back-btn" onclick="closeApp('settingsApp')">
@@ -164,7 +179,7 @@
                         <small>Bağlı: HomeWifi</small>
                     </div>
                     <label class="switch">
-                        <input type="checkbox" checked>
+                        <input type="checkbox" checked id="wifiToggle">
                         <span class="slider"></span>
                     </label>
                 </div>
@@ -175,7 +190,7 @@
                         <small>Kapalı</small>
                     </div>
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="bluetoothToggle">
                         <span class="slider"></span>
                     </label>
                 </div>
@@ -217,7 +232,7 @@
             </div>
         </div>
 
-        <!-- Google Arama -->
+        <!-- GOOGLE ARAMA -->
         <div class="app-window" id="googleSearch">
             <div class="app-header">
                 <button class="back-btn" onclick="closeApp('googleSearch')">
@@ -251,7 +266,7 @@
             </div>
         </div>
 
-        <!-- Uygulama Açıldığında -->
+        <!-- DİĞER UYGULAMALAR -->
         <div class="app-window" id="appContent">
             <div class="app-header">
                 <button class="back-btn" onclick="closeApp('appContent')">
@@ -266,7 +281,7 @@
         </div>
     </div>
 
-    <!-- Kontroller -->
+    <!-- ALTA KONTROLLER (TEMA, KİLİT, YENİLE) -->
     <div class="controls">
         <button onclick="toggleTheme()">
             <i class="fas fa-moon"></i> Tema
@@ -281,4 +296,4 @@
 
     <script src="script.js"></script>
 </body>
-    </html>
+                </html>
