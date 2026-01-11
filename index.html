@@ -3,167 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Demo Site</title>
+<title>Realme UI‑esintili Web UI</title>
 <style>
-  /* Genel */
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    background: #f0f0f0;
-    overflow-x: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    background: linear-gradient(135deg, #e2e2e2, #ffffff);
+    height: 100vh;
+    overflow: hidden;
   }
-
-  /* Üst kısım */
-  header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 50px;
-    background: #222;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-    z-index: 1000;
-    font-weight: 500;
-  }
-
-  /* Uygulama ikonları */
+  
   .appGrid {
-    margin-top: 60px;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    padding-bottom: 80px; /* gesture bar için boşluk */
+    gap: 25px;
+    margin-top: 60px;
+    padding-bottom: 90px;
   }
+  
   .appIcon {
-    width: 80px;
-    height: 80px;
-    background: #555;
-    border-radius: 20px;
+    width: 90px;
+    height: 90px;
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.8);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    color: #111;
     cursor: pointer;
-    font-size: 12px;
-    user-select: none;
-    transition: transform 0.2s;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
   .appIcon:hover {
-    transform: scale(1.1);
+    transform: scale(1.12);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
   }
 
-  /* Demo uygulama ekranı */
   #appDemo {
     display: none;
-    position: fixed;
-    top: 50px;
+    position: absolute;
+    top: 80px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%;
-    max-width: 400px;
-    height: 60%;
-    background: #fff;
-    border: 2px solid #000;
-    border-radius: 15px;
-    z-index: 900;
+    width: 85%;
+    height: 55%;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(12px);
+    border-radius: 22px;
+    padding: 16px;
     text-align: center;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    animation: openAnim 0.3s ease forwards;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
   }
-  @keyframes openAnim {
-    from { transform: translateX(-50%) scale(0.7); opacity: 0; }
-    to { transform: translateX(-50%) scale(1); opacity: 1; }
-  }
-
+  
   #appDemo h2 {
-    margin-top: 10px;
+    margin-top: 12px;
+    font-size: 20px;
   }
+  
   #appDemo p {
-    margin-top: 10px;
-    font-weight: bold;
     color: red;
+    margin: 8px 0;
+    font-weight: bold;
   }
-
-  /* Demo uygulama kapatma butonu */
+  
   #appDemo button {
-    margin-top: 20px;
-    padding: 8px 16px;
+    margin-top: 18px;
+    padding: 8px 14px;
+    font-size: 14px;
+    background: #111;
+    color: white;
     border: none;
-    background: #222;
-    color: #fff;
     border-radius: 10px;
     cursor: pointer;
-    font-family: inherit;
-  }
-  #appDemo button:hover {
-    background: #444;
   }
 
-  /* Gesture Bar (iOS tarzı) */
-  #gestureBar {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 6px;
-    background: #aaa;
-    border-radius: 3px;
-    z-index: 1000;
+  #bottomBar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(16px);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.8);
   }
+  
+  #bottomBar div {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
 </style>
 </head>
 <body>
 
-<header>
-  Demo Site
-</header>
-
 <div class="appGrid">
-  <div class="appIcon" onclick="openApp('Demo Uygulama')">Demo App</div>
-  <div class="appIcon" onclick="gestureCommand('Bildirim')">Bildirim</div>
-  <div class="appIcon" onclick="gestureCommand('Geri')">Geri</div>
+  <div class="appIcon" onclick="openApp('Demo App')">Demo App</div>
+  <div class="appIcon" onclick="notifyCmd('Bildirim')">Bildirim</div>
+  <div class="appIcon" onclick="notifyCmd('Geri')">Geri</div>
 </div>
 
 <div id="appDemo">
-  <h2>Bu bir demo uygulamadır</h2>
-  <p>Beta</p>
-  <button onclick="gestureCommand('Kapat')">Kapat</button>
+  <h2>Uygulama Açıldı</h2>
+  <p>Bu bir demo uygulamadır</p>
+  <button onclick="closeApp()">Kapat</button>
 </div>
 
-<div id="gestureBar"></div>
+<div id="bottomBar">
+  <div onclick="openApp('Demo App')">🏠 Başlat</div>
+  <div onclick="notifyCmd('Bildirim')">🔔 Bildirim</div>
+  <div onclick="notifyCmd('Geri')">🔙 Geri</div>
+</div>
 
 <script>
-  const appDemo = document.getElementById('appDemo');
-  const icons = document.querySelectorAll('.appIcon');
+  const demo = document.getElementById("appDemo");
+  const icons = document.querySelectorAll(".appIcon");
 
   function openApp(name) {
-    appDemo.style.display = 'block';
-    icons.forEach(icon => icon.style.display = 'none');
-    console.log(name + " açıldı");
+    demo.style.display = "block";
+    icons.forEach(i=> i.style.display="none");
   }
-
-  function gestureCommand(cmd) {
-    console.log("Gesture bar komutu:", cmd);
-
-    if(cmd === "Kapat") {
-      appDemo.style.display = 'none';
-      icons.forEach(icon => icon.style.display = 'flex');
-    }
-    if(cmd === "Bildirim") {
-      alert("Bildirim geldi!");
-    }
-    if(cmd === "Geri") {
-      console.log("Geri komutu çalıştı");
-      alert("Geri tuşu basıldı");
-    }
-    if(cmd === "Aç") {
-      openApp('Demo Uygulama');
-    }
+  function closeApp() {
+    demo.style.display = "none";
+    icons.forEach(i=> i.style.display="flex");
+  }
+  function notifyCmd(cmd) {
+    alert(cmd + " komutu!");
   }
 </script>
 
