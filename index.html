@@ -3,312 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realme UI Android Simülatörü</title>
+    <title>Android Simülatörü</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Acil açma butonu - test için */
+        .emergency {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: red;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 9999;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+    <!-- Acil açma butonu -->
+    <div class="emergency" onclick="unlockPhone()">
+        🔓 EMERGENCY UNLOCK
+    </div>
+
     <!-- Android Simülatörü -->
-    <div class="android-simulator">
-        <!-- KİLİT EKRANI -->
-        <div class="lock-screen active" id="lockScreen">
-            <div class="lock-time">23:24</div>
-            <div class="lock-date">Çarşamba, 12 Nisan</div>
-            
-            <div class="lock-notifications">
-                <div class="notification">
-                    <i class="fas fa-bell"></i>
-                    <span>Soma yine gel!</span>
-                </div>
+    <div class="android-phone">
+        <!-- Status Bar (Her ekranda görünecek) -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span class="time">00:51</span>
+                <i class="fas fa-lock status-icon"></i>
             </div>
-            
-            <!-- PARMAK İZİ İLE AÇMA -->
-            <div class="unlock-area">
-                <div class="fingerprint-hint">
-                    <i class="fas fa-fingerprint"></i>
-                    <span>Parmak izi ile aç</span>
-                </div>
+            <div class="status-center">vodafone TR</div>
+            <div class="status-right">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- KİLİT EKRANI (FOTO 1) -->
+        <div class="lock-screen active" id="lockScreen">
+            <div class="lock-content">
+                <div class="lock-time">00:51</div>
+                <div class="lock-date">12 Oca Pzt® 06:18</div>
                 
-                <div class="fingerprint-circle" id="fingerprintBtn">
-                    <div class="fingerprint-icon">
-                        <i class="fas fa-fingerprint"></i>
+                <div class="lock-notification">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
                     </div>
-                    <div class="fingerprint-ring"></div>
-                    <div class="fingerprint-progress"></div>
+                    <div class="notification-text">
+                        <strong>Soma yine gel!</strong>
+                        <span>Şimdi</span>
+                    </div>
                 </div>
                 
-                <div class="unlock-alternative">
-                    <i class="fas fa-arrow-up"></i>
-                    <span>veya yukarı kaydır</span>
+                <!-- Açma alanı -->
+                <div class="unlock-area">
+                    <div class="unlock-hint">
+                        <i class="fas fa-chevron-up"></i>
+                        <span>Yukarı kaydırarak kilidi aç</span>
+                    </div>
+                    
+                    <div class="fingerprint-btn" onclick="unlockWithFingerprint()">
+                        <div class="fingerprint-icon">
+                            <i class="fas fa-fingerprint"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- ANA EKRAN -->
+        <!-- ANA EKRAN (FOTO 2) -->
         <div class="home-screen" id="homeScreen">
-            <!-- Status Bar -->
-            <div class="status-bar">
-                <div class="status-left">23:24</div>
-                <div class="status-right">
-                    <i class="fas fa-signal"></i>
-                    <i class="fas fa-wifi"></i>
-                    <i class="fas fa-battery-full"></i>
-                </div>
-            </div>
-
-            <!-- Google Widget -->
-            <div class="google-widget">
+            <!-- Google Arama -->
+            <div class="search-widget">
                 <div class="search-bar" onclick="openSearch()">
                     <i class="fas fa-search"></i>
                     <span>Google'da ara veya URL yaz</span>
                 </div>
-                <div class="weather-info">
+                <div class="weather-widget">
                     <i class="fas fa-sun"></i>
-                    <span>İstanbul • 18°</span>
+                    <span>İstanbul • 6°</span>
                 </div>
             </div>
 
-            <!-- UYGULAMA GRİD'İ (FOTOĞRAFTAN AYNEN) -->
+            <!-- Uygulama Grid (FOTOYA TIPATIP) -->
             <div class="app-grid">
-                <!-- 1. SATIR -->
-                <div class="app-folder" onclick="openFolder('Settings')">
-                    <div class="folder-icon">
-                        <i class="fas fa-cog"></i>
-                        <i class="fas fa-sliders-h"></i>
+                <!-- SATIR 1 -->
+                <div class="app-folder" onclick="openFolder('settings')">
+                    <div class="folder-apps">
+                        <div class="folder-app-icon"><i class="fas fa-cog"></i></div>
+                        <div class="folder-app-icon"><i class="fas fa-sliders-h"></i></div>
+                        <div class="folder-app-icon"><i class="fas fa-bell"></i></div>
                     </div>
-                    <span>Settings/...</span>
+                    <span class="app-label">Settings/...</span>
                 </div>
-                <div class="app" onclick="openApp('Shopping')">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Shopping</span>
+                
+                <div class="app-icon" onclick="openApp('Shopping')">
+                    <div class="app-circle">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <span class="app-label">Shopping</span>
                 </div>
-                <div class="app" onclick="openApp('Productivity')">
-                    <i class="fas fa-tasks"></i>
-                    <span>Productiv...</span>
-                </div>
-
-                <!-- 2. SATIR -->
-                <div class="app" onclick="openApp('Games')">
-                    <i class="fas fa-gamepad"></i>
-                    <span>Games</span>
-                </div>
-                <div class="app" onclick="openApp('Social')">
-                    <i class="fas fa-users"></i>
-                    <span>Social</span>
-                </div>
-                <div class="app" onclick="openApp('Play Store')">
-                    <i class="fab fa-google-play"></i>
-                    <span>Play Store</span>
+                
+                <div class="app-icon" onclick="openApp('Productivity')">
+                    <div class="app-circle">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <span class="app-label">Productiv...</span>
                 </div>
 
-                <!-- 3. SATIR -->
-                <div class="app" onclick="openApp('Weather')">
-                    <i class="fas fa-cloud-sun"></i>
-                    <span>Hava dur...</span>
+                <!-- SATIR 2 -->
+                <div class="app-icon" onclick="openApp('Games')">
+                    <div class="app-circle">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <span class="app-label">Games</span>
                 </div>
-                <div class="app" onclick="openGoogle()">
-                    <i class="fab fa-google"></i>
-                    <span>Google</span>
+                
+                <div class="app-icon" onclick="openApp('Social')">
+                    <div class="app-circle">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span class="app-label">Social</span>
                 </div>
-                <div class="app" onclick="openApp('Chrome')">
-                    <i class="fab fa-chrome"></i>
-                    <span>Chrome ...</span>
-                </div>
-
-                <!-- 4. SATIR -->
-                <div class="app" onclick="openApp('Fazilet')">
-                    <i class="fas fa-book"></i>
-                    <span>Fazilet...</span>
-                </div>
-                <div class="app" onclick="openApp('Duolingo')">
-                    <i class="fas fa-language"></i>
-                    <span>Duolingo</span>
-                </div>
-                <div class="app" onclick="openApp('Proton')">
-                    <i class="fas fa-envelope"></i>
-                    <span>Proton V...</span>
+                
+                <div class="app-icon" onclick="openApp('Play Store')">
+                    <div class="app-circle">
+                        <i class="fab fa-google-play"></i>
+                    </div>
+                    <span class="app-label">Play Store</span>
                 </div>
 
-                <!-- 5. SATIR -->
-                <div class="app" onclick="openApp('Files')">
-                    <i class="fas fa-folder"></i>
-                    <span>Files</span>
+                <!-- SATIR 3 -->
+                <div class="app-icon" onclick="openApp('Weather')">
+                    <div class="app-circle">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <span class="app-label">Hava dur...</span>
                 </div>
-                <div class="app" onclick="openApp('Gmail')">
-                    <i class="fas fa-envelope"></i>
-                    <span>Gmail</span>
+                
+                <div class="app-icon" onclick="openGoogle()">
+                    <div class="app-circle">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <span class="app-label">Google</span>
                 </div>
-                <div class="app" onclick="openApp('Camera')">
-                    <i class="fas fa-camera"></i>
-                    <span>Camera</span>
+                
+                <div class="app-icon" onclick="openApp('Chrome')">
+                    <div class="app-circle">
+                        <i class="fab fa-chrome"></i>
+                    </div>
+                    <span class="app-label">Chrome ...</span>
+                </div>
+
+                <!-- SATIR 4 -->
+                <div class="app-icon" onclick="openApp('Fazilet')">
+                    <div class="app-circle">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <span class="app-label">Fazilet...</span>
+                </div>
+                
+                <div class="app-icon" onclick="openApp('Duolingo')">
+                    <div class="app-circle">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <span class="app-label">Duolingo</span>
+                </div>
+                
+                <div class="app-icon" onclick="openApp('Proton')">
+                    <div class="app-circle">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <span class="app-label">Proton V...</span>
+                </div>
+
+                <!-- SATIR 5 -->
+                <div class="app-icon" onclick="openApp('Files')">
+                    <div class="app-circle">
+                        <i class="fas fa-folder"></i>
+                    </div>
+                    <span class="app-label">Files</span>
+                </div>
+                
+                <div class="app-icon" onclick="openApp('Gmail')">
+                    <div class="app-circle">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <span class="app-label">Gmail</span>
+                </div>
+                
+                <div class="app-icon" onclick="openApp('Camera')">
+                    <div class="app-circle">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <span class="app-label">Camera</span>
                 </div>
             </div>
 
-            <!-- DOCK -->
+            <!-- Dock (Alt Çubuk) -->
             <div class="app-dock">
-                <div class="dock-app" onclick="openApp('Phone')">
+                <div class="dock-icon" onclick="openApp('Phone')">
                     <i class="fas fa-phone"></i>
                 </div>
-                <div class="dock-app" onclick="openApp('Messages')">
+                <div class="dock-icon" onclick="openApp('Messages')">
                     <i class="fas fa-message"></i>
                 </div>
-                <div class="dock-app" onclick="openApp('Camera')">
+                <div class="dock-icon active" onclick="openApp('Home')">
+                    <i class="fas fa-circle"></i>
+                </div>
+                <div class="dock-icon" onclick="openApp('Camera')">
                     <i class="fas fa-camera"></i>
                 </div>
-                <div class="dock-app" onclick="openApp('Browser')">
+                <div class="dock-icon" onclick="openApp('Browser')">
                     <i class="fas fa-globe"></i>
                 </div>
             </div>
         </div>
 
-        <!-- AYARLAR UYGULAMASI -->
-        <div class="app-window" id="settingsApp">
+        <!-- Uygulama Pencereleri (geçici) -->
+        <div class="app-window" id="appWindow">
             <div class="app-header">
-                <button class="back-btn" onclick="closeApp('settingsApp')">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <h3>Ayarlar</h3>
-                <i class="fas fa-search"></i>
-            </div>
-            <div class="settings-list">
-                <div class="setting-item" onclick="toggleSetting('wifi')">
-                    <i class="fas fa-wifi"></i>
-                    <div class="setting-info">
-                        <span>Wi-Fi</span>
-                        <small>Bağlı: HomeWifi</small>
-                    </div>
-                    <label class="switch">
-                        <input type="checkbox" checked id="wifiToggle">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="setting-item" onclick="toggleSetting('bluetooth')">
-                    <i class="fas fa-bluetooth"></i>
-                    <div class="setting-info">
-                        <span>Bluetooth</span>
-                        <small>Kapalı</small>
-                    </div>
-                    <label class="switch">
-                        <input type="checkbox" id="bluetoothToggle">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="setting-item" onclick="toggleSetting('darkMode')">
-                    <i class="fas fa-moon"></i>
-                    <div class="setting-info">
-                        <span>Karanlık Mod</span>
-                        <small>Gün batımında aç</small>
-                    </div>
-                    <label class="switch">
-                        <input type="checkbox" id="darkModeToggle">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="setting-item" onclick="openBatterySettings()">
-                    <i class="fas fa-battery-three-quarters"></i>
-                    <div class="setting-info">
-                        <span>Pil Optimizasyonu</span>
-                        <small>%78 • 5h 42m kaldı</small>
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-                <div class="setting-item" onclick="openThemeSettings()">
-                    <i class="fas fa-palette"></i>
-                    <div class="setting-info">
-                        <span>Tema</span>
-                        <small>Realme UI • Mavi</small>
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-                <div class="setting-item" onclick="openStorageSettings()">
-                    <i class="fas fa-database"></i>
-                    <div class="setting-info">
-                        <span>Depolama</span>
-                        <small>128GB / 256GB • %42 dolu</small>
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- GOOGLE ARAMA -->
-        <div class="app-window" id="googleSearch">
-            <div class="app-header">
-                <button class="back-btn" onclick="closeApp('googleSearch')">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <div class="search-input">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Google'da ara..." id="searchInput">
-                </div>
-                <i class="fas fa-microphone"></i>
-            </div>
-            <div class="search-results">
-                <div class="result-item">
-                    <i class="fab fa-google"></i>
-                    <div>
-                        <h4>Google</h4>
-                        <p>www.google.com</p>
-                    </div>
-                </div>
-                <div class="quick-searches">
-                    <h4>Hızlı Aramalar</h4>
-                    <div class="quick-search" onclick="searchFor('Realme UI 5.0')">
-                        <i class="fas fa-mobile-alt"></i>
-                        <span>Realme UI 5.0 özellikleri</span>
-                    </div>
-                    <div class="quick-search" onclick="searchFor('Android 14')">
-                        <i class="fab fa-android"></i>
-                        <span>Android 14 güncellemesi</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- DİĞER UYGULAMALAR -->
-        <div class="app-window" id="appContent">
-            <div class="app-header">
-                <button class="back-btn" onclick="closeApp('appContent')">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
+                <button class="back-btn" onclick="closeApp()">‹</button>
                 <h3 id="appTitle">Uygulama</h3>
-                <i class="fas fa-ellipsis-v"></i>
             </div>
-            <div class="app-content" id="appContentBody">
-                <!-- Uygulama içeriği buraya gelecek -->
+            <div class="app-content" id="appContent">
+                Uygulama içeriği
             </div>
         </div>
     </div>
 
-    <!-- ALTA KONTROLLER (TEMA, KİLİT, YENİLE) -->
+    <!-- Kontroller -->
     <div class="controls">
-        <button onclick="toggleTheme()">
-            <i class="fas fa-moon"></i> Tema
-        </button>
-        <button onclick="lockScreen()">
-            <i class="fas fa-lock"></i> Kilitle
-        </button>
-        <button onclick="refreshPage()">
-            <i class="fas fa-sync"></i> Yenile
-        </button>
+        <button onclick="lockScreen()"><i class="fas fa-lock"></i> Kilitle</button>
+        <button onclick="toggleTheme()"><i class="fas fa-moon"></i> Tema</button>
+        <button onclick="location.reload()"><i class="fas fa-redo"></i> Yenile</button>
     </div>
 
     <script src="script.js"></script>
 </body>
                 </html>
-<script>
-// Sayfa yüklendiğinde OTOMATİK AÇ
-window.onload = function() {
-    // 2 saniye bekle, sonra aç
-    setTimeout(function() {
-        unlockPhone();
-    }, 2000);
-
-
-<script>
-// EMERGENCY FUNCTIONS
-function forceUnlock() {
-    alert("FORCE UNLOCK ÇALIŞTI!");
-    
-    // 1. Kilit
