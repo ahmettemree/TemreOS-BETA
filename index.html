@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realme Web OS</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>GitHub Pages ÇALIŞIYOR 🎉</h1>
+
+  <header class="status-bar">
+    <span>Realme Web OS</span>
+    <span id="clock"></span>
+  </header>
+
+  <main class="home">
+    <div class="app" onclick="openApp('Ayarlar')">⚙️<span>Ayarlar</span></div>
+    <div class="app" onclick="openApp('Tarayıcı')">🌐<span>Tarayıcı</span></div>
+    <div class="app" onclick="openApp('Dosyalar')">📁<span>Dosyalar</span></div>
+    <div class="app" onclick="openApp('Kamera')">📷<span>Kamera</span></div>
+  </main>
+
+  <footer class="dock">
+    <button onclick="openApp('Telefon')">📞</button>
+    <button onclick="openApp('Mesajlar')">💬</button>
+    <button onclick="openApp('Chrome')">🌍</button>
+  </footer>
+
+  <div id="appWindow" class="app-window hidden">
+    <div class="app-header">
+      <span id="appTitle"></span>
+      <button onclick="closeApp()">✕</button>
+    </div>
+    <div class="app-content">
+      <p>Bu bir demo uygulamadır.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
