@@ -46,3 +46,53 @@
   <script src="script.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gesture Bar Demo</title>
+<style>
+  body { margin: 0; font-family: sans-serif; background: #f0f0f0; }
+  #gestureBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #222;
+    color: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    z-index: 1000;
+  }
+  .gestureBtn {
+    cursor: pointer;
+    padding: 10px 20px;
+    background: #444;
+    border-radius: 10px;
+    transition: background 0.2s;
+  }
+  .gestureBtn:hover {
+    background: #666;
+  }
+</style>
+</head>
+<body>
+
+<div id="gestureBar">
+  <div class="gestureBtn" onclick="gestureCommand('Aç')">Aç</div>
+  <div class="gestureBtn" onclick="gestureCommand('Kapat')">Kapat</div>
+  <div class="gestureBtn" onclick="gestureCommand('Bildirim')">Bildirim</div>
+  <div class="gestureBtn" onclick="gestureCommand('Geri')">Geri</div>
+</div>
+
+<script>
+  function gestureCommand(cmd) {
+    console.log("Gesture bar komutu:", cmd);
+    alert("Komut verildi: " + cmd); // test için
+  }
+</script>
+
+</body>
+</html>
