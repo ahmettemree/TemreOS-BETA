@@ -1,36 +1,92 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Android Simülatörü</title>
+    <title>TemreOS v1.0 - Personal Android Experience</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Acil açma butonu - test için */
-        .emergency {
+        /* Toast Notification */
+        #appToast {
             position: fixed;
-            top: 10px;
-            left: 10px;
-            background: red;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
             color: white;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            z-index: 99999;
+            animation: toastSlide 0.3s ease;
+            display: none;
+        }
+        
+        @keyframes toastSlide {
+            from { top: -50px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Beta Badge */
+        .beta-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #0088cc, #00aced);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 136, 204, 0.3);
             z-index: 9999;
-            cursor: pointer;
+        }
+        
+        .beta-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
     </style>
 </head>
 <body>
-    <!-- Acil açma butonu -->
-    <div class="emergency" onclick="unlockPhone()">
-        🔓 EMERGENCY UNLOCK
+    <!-- Beta Badge -->
+    <div class="beta-badge">
+        <span class="beta-text">BETA v1.0</span>
+        <a href="https://t.me/temreos_beta" target="_blank" class="beta-link">
+            <i class="fab fa-telegram"></i> Bug Report
+        </a>
     </div>
 
-    <!-- Android Simülatörü -->
+    <!-- Toast Notification -->
+    <div id="appToast"></div>
+
+    <!-- Android Device -->
     <div class="android-phone">
-        <!-- Status Bar (Her ekranda görünecek) -->
+        <!-- Status Bar -->
         <div class="status-bar">
             <div class="status-left">
                 <span class="time">00:51</span>
@@ -44,8 +100,8 @@
             </div>
         </div>
 
-        <!-- KİLİT EKRANI (FOTO 1) -->
-        <div class="lock-screen active" id="lockScreen">
+        <!-- Lock Screen -->
+        <div class="screen lock-screen active" id="lockScreen">
             <div class="lock-content">
                 <div class="lock-time">00:51</div>
                 <div class="lock-date">12 Oca Pzt® 06:18</div>
@@ -60,25 +116,21 @@
                     </div>
                 </div>
                 
-                <!-- Açma alanı -->
                 <div class="unlock-area">
                     <div class="unlock-hint">
                         <i class="fas fa-chevron-up"></i>
                         <span>Yukarı kaydırarak kilidi aç</span>
                     </div>
                     
-                    <div class="fingerprint-btn" onclick="unlockWithFingerprint()">
-                        <div class="fingerprint-icon">
-                            <i class="fas fa-fingerprint"></i>
-                        </div>
+                    <div class="fingerprint" onclick="unlockWithFingerprint()">
+                        <i class="fas fa-fingerprint"></i>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ANA EKRAN (FOTO 2) -->
-        <div class="home-screen" id="homeScreen">
-            <!-- Google Arama -->
+        <!-- Home Screen -->
+        <div class="screen home-screen" id="homeScreen" style="display: none;">
             <div class="search-widget">
                 <div class="search-bar" onclick="openSearch()">
                     <i class="fas fa-search"></i>
@@ -90,10 +142,10 @@
                 </div>
             </div>
 
-            <!-- Uygulama Grid (FOTOYA TIPATIP) -->
+            <!-- App Grid -->
             <div class="app-grid">
-                <!-- SATIR 1 -->
-                <div class="app-folder" onclick="openFolder('settings')">
+                <!-- Row 1 -->
+                <div class="app-folder" onclick="openFolder('Settings')">
                     <div class="folder-apps">
                         <div class="folder-app-icon"><i class="fas fa-cog"></i></div>
                         <div class="folder-app-icon"><i class="fas fa-sliders-h"></i></div>
@@ -116,7 +168,7 @@
                     <span class="app-label">Productiv...</span>
                 </div>
 
-                <!-- SATIR 2 -->
+                <!-- Row 2 -->
                 <div class="app-icon" onclick="openApp('Games')">
                     <div class="app-circle">
                         <i class="fas fa-gamepad"></i>
@@ -138,7 +190,7 @@
                     <span class="app-label">Play Store</span>
                 </div>
 
-                <!-- SATIR 3 -->
+                <!-- Row 3 -->
                 <div class="app-icon" onclick="openApp('Weather')">
                     <div class="app-circle">
                         <i class="fas fa-cloud-sun"></i>
@@ -160,7 +212,7 @@
                     <span class="app-label">Chrome ...</span>
                 </div>
 
-                <!-- SATIR 4 -->
+                <!-- Row 4 -->
                 <div class="app-icon" onclick="openApp('Fazilet')">
                     <div class="app-circle">
                         <i class="fas fa-book"></i>
@@ -182,7 +234,7 @@
                     <span class="app-label">Proton V...</span>
                 </div>
 
-                <!-- SATIR 5 -->
+                <!-- Row 5 -->
                 <div class="app-icon" onclick="openApp('Files')">
                     <div class="app-circle">
                         <i class="fas fa-folder"></i>
@@ -205,7 +257,7 @@
                 </div>
             </div>
 
-            <!-- Dock (Alt Çubuk) -->
+            <!-- Dock -->
             <div class="app-dock">
                 <div class="dock-icon" onclick="openApp('Phone')">
                     <i class="fas fa-phone"></i>
@@ -225,25 +277,26 @@
             </div>
         </div>
 
-        <!-- Uygulama Pencereleri (geçici) -->
-        <div class="app-window" id="appWindow">
+        <!-- App Window -->
+        <div class="app-window" id="appWindow" style="display: none;">
             <div class="app-header">
                 <button class="back-btn" onclick="closeApp()">‹</button>
                 <h3 id="appTitle">Uygulama</h3>
             </div>
             <div class="app-content" id="appContent">
-                Uygulama içeriği
+                <!-- App content will be loaded here -->
             </div>
         </div>
     </div>
 
-    <!-- Kontroller -->
+    <!-- Controls -->
     <div class="controls">
         <button onclick="lockScreen()"><i class="fas fa-lock"></i> Kilitle</button>
-        <button onclick="toggleTheme()"><i class="fas fa-moon"></i> Tema</button>
+        <button onclick="toggleTheme()" id="themeBtn"><i class="fas fa-moon"></i> Tema</button>
         <button onclick="location.reload()"><i class="fas fa-redo"></i> Yenile</button>
     </div>
 
     <script src="script.js"></script>
 </body>
-                </html>
+                    </html>
+                    
