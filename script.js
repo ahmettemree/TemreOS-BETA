@@ -1,5 +1,5 @@
 // ===== TEMREOS v1.0 - TÜM DÜZELTMELER =====
-console.log("🚀 TemreOS v1.0 Yüklendi!");
+console.log("🚀 TemreOS v0.2 Yüklendi!");
 
 // Global değişkenler
 let fingerprintCooldown = false;
