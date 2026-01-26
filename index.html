@@ -3,33 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TemreOS Beta V.03</title>
+    <title>TemreOS Beta V.04</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Android Boot Screen -->
-    <div class="boot-screen" id="bootScreen">
+    <!-- BOOT SCREEN 1: TemreOS + Android Logo -->
+    <div class="boot-screen boot-1" id="bootScreen1">
+        <div class="leaf-pattern"></div>
         <div class="boot-content">
-            <div class="android-logo">
-                <svg viewBox="0 0 24 24" width="80" height="80">
+            <div class="temreos-logo">
+                <h1 class="distorted-text">TemreOS</h1>
+                <p class="android-text">Android</p>
+            </div>
+            <div class="android-robot">
+                <svg viewBox="0 0 24 24" width="60" height="60">
                     <path fill="#3DDC84" d="M6,18c0,0.55 0.45,1 1,1h1v3.5c0,0.83 0.67,1.5 1.5,1.5s1.5,-0.67 1.5,-1.5L11,19h2v3.5c0,0.83 0.67,1.5 1.5,1.5s1.5,-0.67 1.5,-1.5L16,19h1c0.55,0 1,-0.45 1,-1L18,8L6,8v10zM3.5,8C2.67,8 2,8.67 2,9.5v7c0,0.83 0.67,1.5 1.5,1.5S5,17.33 5,16.5v-7C5,8.67 4.33,8 3.5,8zM20.5,8c-0.83,0 -1.5,0.67 -1.5,1.5v7c0,0.83 0.67,1.5 1.5,1.5s1.5,-0.67 1.5,-1.5v-7c0,-0.83 -0.67,-1.5 -1.5,-1.5zM15.53,3.16l1.3,-1.3c0.2,-0.2 0.2,-0.51 0,-0.71 -0.2,-0.2 -0.51,-0.2 -0.71,0l-1.48,1.48C13.85,2.23 12.95,2 12,2c-0.96,0 -1.86,0.23 -2.66,0.63L7.85,1.15c-0.2,-0.2 -0.51,-0.2 -0.71,0 -0.2,0.2 -0.2,0.51 0,0.71l1.31,1.31C6.97,3.26 6,4.46 6,6c0,0.68 0.21,1.32 0.58,1.84C6.21,8.32 6,8.68 6,9v1h12V9c0,-0.32 -0.21,-0.68 -0.58,-0.84C17.79,7.32 18,6.68 18,6c0,-1.54 -0.97,-2.74 -2.47,-2.84zM10,5.5c0,0.83 -0.67,1.5 -1.5,1.5S7,6.33 7,5.5 7.67,4 8.5,4s1.5,0.67 1.5,1.5zM17,5.5c0,0.83 -0.67,1.5 -1.5,1.5s-1.5,-0.67 -1.5,-1.5S14.67,4 15.5,4s1.5,0.67 1.5,1.5z"/>
                 </svg>
-            </div>
-            <div class="boot-text">
-                <div class="powered-by">Powered by Android</div>
-                <div class="os-name">TemreOS</div>
-                <div class="os-version">Beta V.03</div>
-            </div>
-            <div class="boot-progress">
-                <div class="progress-bar"></div>
             </div>
         </div>
     </div>
 
-    <!-- Lock Screen -->
-    <div class="lock-screen" id="lockScreen">
+    <!-- BOOT SCREEN 2: Made with hardwork -->
+    <div class="boot-screen boot-2" id="bootScreen2" style="display: none;">
+        <div class="leaf-pattern"></div>
+        <div class="boot-content">
+            <div class="credits">
+                <p class="made-by">Made with hardwork by</p>
+                <p class="tiktok">@temreostiktok</p>
+                <p class="ai-note">(bazı kısımlar AI) / (some parts are AI)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOCK SCREEN -->
+    <div class="lock-screen" id="lockScreen" style="display: none;">
         <div class="status-bar">
             <div class="status-time">00:00</div>
             <div class="status-icons">
@@ -58,8 +67,8 @@
         </div>
     </div>
 
-    <!-- Home Screen -->
-    <div class="home-screen" id="homeScreen">
+    <!-- HOME SCREEN -->
+    <div class="home-screen" id="homeScreen" style="display: none;">
         <div class="status-bar">
             <div class="status-left">
                 <span class="time">00:00</span>
@@ -180,8 +189,8 @@
         </div>
     </div>
 
-    <!-- App Windows -->
-    <div class="app-window" id="appWindow">
+    <!-- APP WINDOW -->
+    <div class="app-window" id="appWindow" style="display: none;">
         <div class="app-header">
             <button class="back-btn" onclick="closeApp()">
                 <i class="fas fa-arrow-left"></i>
@@ -196,19 +205,18 @@
         </div>
     </div>
 
-    <!-- Settings App Content (Hidden Template) -->
+    <!-- APP CONTENT TEMPLATES -->
+    <!-- Settings -->
     <div id="settingsContent" style="display: none;">
         <div class="settings-container">
-            <!-- Header -->
             <div class="settings-header">
                 <h2><i class="fas fa-cog"></i> Ayarlar</h2>
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Ayarlarda ara">
+                    <input type="text" placeholder="Ayarlarda ara" id="settingsSearch">
                 </div>
             </div>
 
-            <!-- Settings Categories -->
             <div class="settings-categories">
                 <div class="settings-section">
                     <h3><i class="fas fa-wifi"></i> Bağlantı</h3>
@@ -256,172 +264,90 @@
                             <span class="slider"></span>
                         </label>
                     </div>
-                    
-                    <div class="settings-item" onclick="openThemeSelector()">
-                        <div class="item-info">
-                            <i class="fas fa-fill-drip"></i>
-                            <div>
-                                <strong>Tema Rengi</strong>
-                                <small>Mavi • Özel</small>
-                            </div>
-                        </div>
-                        <div class="color-preview" style="background: #4285f4;"></div>
-                    </div>
-                    
-                    <div class="settings-item" onclick="openWallpaperPicker()">
-                        <div class="item-info">
-                            <i class="fas fa-image"></i>
-                            <div>
-                                <strong>Duvar Kağıdı</strong>
-                                <small>Varsayılan</small>
-                            </div>
-                        </div>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
                 </div>
 
                 <div class="settings-section">
-                    <h3><i class="fas fa-magic"></i> Animasyonlar</h3>
-                    <div class="settings-item toggle" onclick="toggleSetting('animations')">
-                        <div class="item-info">
-                            <i class="fas fa-play-circle"></i>
-                            <div>
-                                <strong>Animasyonlar</strong>
-                                <small>Açık • 1x hız</small>
-                            </div>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="animationsToggle" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    
-                    <div class="settings-item" onclick="changeAnimationSpeed()">
-                        <div class="item-info">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <div>
-                                <strong>Animasyon Hızı</strong>
-                                <small>Normal</small>
-                            </div>
-                        </div>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                </div>
-
-                <div class="settings-section">
-                    <h3><i class="fas fa-mobile-alt"></i> Cihaz Hakkında</h3>
+                    <h3><i class="fas fa-info-circle"></i> Cihaz Hakkında</h3>
                     <div class="settings-item info" onclick="showDeviceInfo()">
                         <div class="item-info">
-                            <i class="fas fa-info-circle"></i>
+                            <i class="fas fa-mobile-alt"></i>
                             <div>
-                                <strong>Cihaz Bilgileri</strong>
-                                <small>TemreOS Beta V.03</small>
+                                <strong>TemreOS Beta V.04</strong>
+                                <small>Son güncelleme: Bugün</small>
                             </div>
                         </div>
                         <i class="fas fa-chevron-right"></i>
-                    </div>
-                    
-                    <div class="device-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-microchip"></i>
-                            <div>
-                                <strong>İşlemci</strong>
-                                <span>Snapdragon 8 Gen 2</span>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-item">
-                            <i class="fas fa-memory"></i>
-                            <div>
-                                <strong>Bellek</strong>
-                                <span>12 GB RAM</span>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-item">
-                            <i class="fas fa-hdd"></i>
-                            <div>
-                                <strong>Depolama</strong>
-                                <span>256 GB (187 GB boş)</span>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-item">
-                            <i class="fas fa-battery-full"></i>
-                            <div>
-                                <strong>Pil</strong>
-                                <span>%78 • 5h 42m kaldı</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="settings-item" onclick="checkForUpdates()">
-                        <div class="item-info">
-                            <i class="fas fa-sync-alt"></i>
-                            <div>
-                                <strong>Yazılım Güncelleme</strong>
-                                <small>TemreOS Beta V.03 • Güncel</small>
-                            </div>
-                        </div>
-                        <div class="update-badge">GÜNCEL</div>
-                    </div>
-                </div>
-
-                <div class="settings-section">
-                    <h3><i class="fas fa-shield-alt"></i> Güvenlik</h3>
-                    <div class="settings-item" onclick="openSecuritySettings()">
-                        <div class="item-info">
-                            <i class="fas fa-fingerprint"></i>
-                            <div>
-                                <strong>Parmak İzi</strong>
-                                <small>2 parmak kayıtlı</small>
-                            </div>
-                        </div>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    
-                    <div class="settings-item toggle" onclick="toggleSetting('faceUnlock')">
-                        <div class="item-info">
-                            <i class="fas fa-user-check"></i>
-                            <div>
-                                <strong>Yüz Tanıma</strong>
-                                <small>Kapalı</small>
-                            </div>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="faceUnlockToggle">
-                            <span class="slider"></span>
-                        </label>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Camera App Content -->
+    <!-- Camera -->
     <div id="cameraContent" style="display: none;">
-        <div class="camera-container">
-            <div class="camera-viewfinder"></div>
-            <div class="camera-controls">
-                <button class="camera-btn" onclick="takePhoto()">
+        <div class="app-page">
+            <div class="camera-preview">
+                <div class="viewfinder"></div>
+                <button class="shutter-btn" onclick="takePhoto()">
                     <div class="shutter-circle"></div>
                 </button>
-                <div class="camera-mode">Fotoğraf</div>
             </div>
         </div>
     </div>
 
-    <!-- Other App Contents -->
+    <!-- Messages -->
     <div id="messagesContent" style="display: none;">
-        <div class="messages-container">
-            <h3><i class="fas fa-comment-alt"></i> Mesajlar</h3>
-            <p>Henüz mesaj yok</p>
+        <div class="app-page">
+            <div class="messages-list">
+                <div class="message-item new" onclick="openChat(1)">
+                    <div class="message-avatar">A</div>
+                    <div class="message-info">
+                        <strong>Ahmet</strong>
+                        <p>Naber, nasılsın?</p>
+                    </div>
+                    <span class="message-time">11:30</span>
+                </div>
+                <div class="message-item" onclick="openChat(2)">
+                    <div class="message-avatar">M</div>
+                    <div class="message-info">
+                        <strong>Mehmet</strong>
+                        <p>Toplantı 3'te</p>
+                    </div>
+                    <span class="message-time">10:15</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Toast Notification -->
+    <!-- Phone -->
+    <div id="phoneContent" style="display: none;">
+        <div class="app-page">
+            <div class="dialer">
+                <div class="dialer-display" id="dialerDisplay"></div>
+                <div class="dialer-pad">
+                    <button class="dialer-btn" onclick="dialNumber('1')">1</button>
+                    <button class="dialer-btn" onclick="dialNumber('2')">2</button>
+                    <button class="dialer-btn" onclick="dialNumber('3')">3</button>
+                    <button class="dialer-btn" onclick="dialNumber('4')">4</button>
+                    <button class="dialer-btn" onclick="dialNumber('5')">5</button>
+                    <button class="dialer-btn" onclick="dialNumber('6')">6</button>
+                    <button class="dialer-btn" onclick="dialNumber('7')">7</button>
+                    <button class="dialer-btn" onclick="dialNumber('8')">8</button>
+                    <button class="dialer-btn" onclick="dialNumber('9')">9</button>
+                    <button class="dialer-btn" onclick="dialNumber('*')">*</button>
+                    <button class="dialer-btn" onclick="dialNumber('0')">0</button>
+                    <button class="dialer-btn" onclick="dialNumber('#')">#</button>
+                </div>
+                <button class="call-btn" onclick="makeCall()">
+                    <i class="fas fa-phone"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
     <script src="script.js"></script>
 </body>
-                                    </html>
+            </html>
