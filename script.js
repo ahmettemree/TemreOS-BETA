@@ -1,31 +1,46 @@
-// ===== TEMREOS BETA V.03 - TÜM JAVASCRIPT =====
-console.log("🚀 TemreOS Beta V.03 Başlatılıyor...");
+// ===== TEMREOS V.04 - TÜM JAVASCRIPT =====
+console.log("🚀 TemreOS V.04 Başlatılıyor...");
 
-// Global değişkenler
+// Global variables
 let currentApp = null;
 let appAnimationEnabled = true;
 let fingerprintCooldown = false;
+let dialerNumber = '';
 
-// ===== SAYFA YÜKLENDİĞİNDE =====
+// ===== BOOT SEQUENCE =====
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("📱 TemreOS DOM hazır");
+    console.log("📱 TemreOS V.04 yükleniyor...");
     
-    // Boot ekranından sonra kilit ekranını göster
+    // 1. İlk boot ekranını göster (5 saniye)
     setTimeout(() => {
-        showLockScreen();
-        updateTime();
-    }, 3500); // Boot süresi + fade
+        // İlk ekrandan ikinciye geç (animasyonsuz)
+        document.getElementById('bootScreen1').style.display = 'none';
+        document.getElementById('bootScreen2').style.display = 'flex';
+        
+        // 2. İkinci boot ekranı (5 saniye)
+        setTimeout(() => {
+            // Boot ekranını kapat
+            document.getElementById('bootScreen2').classList.add('exit');
+            
+            // 3. Kilit ekranını göster
+            setTimeout(() => {
+                document.getElementById('bootScreen2').style.display = 'none';
+                showLockScreen();
+                updateTime();
+            }, 800); // Exit animasyonu süresi
+        }, 5000); // 2. ekran 5 saniye
+    }, 5000); // 1. ekran 5 saniye
     
     // Saat güncellemesi
     setInterval(updateTime, 60000);
     
-    // Tema yükleme
+    // Tema yükle
     loadTheme();
     
     // Kaydırma event'leri
     initSwipeGestures();
     
-    console.log("✅ TemreOS hazır!");
+    console.log("✅ TemreOS V.04 hazır!");
 });
 
 // ===== ZAMAN GÜNCELLEME =====
@@ -52,7 +67,6 @@ function updateTime() {
 
 // ===== EKRAN GEÇİŞLERİ =====
 function showLockScreen() {
-    document.getElementById('bootScreen').style.display = 'none';
     document.getElementById('lockScreen').style.display = 'flex';
     document.getElementById('homeScreen').style.display = 'none';
     document.getElementById('appWindow').style.display = 'none';
@@ -78,7 +92,7 @@ function unlockPhone() {
         setTimeout(() => {
             homeScreen.style.opacity = '1';
             homeScreen.style.transition = 'opacity 0.5s ease';
-            showToast("📱 TemreOS'a hoş geldiniz!");
+            showToast("📱 TemreOS V.04'e hoş geldiniz!");
         }, 50);
     }, 500);
 }
@@ -87,7 +101,9 @@ function lockScreen() {
     console.log("🔒 Ekran kilitleniyor...");
     
     // Uygulama varsa kapat
-    closeApp();
+    if (currentApp) {
+        closeApp();
+    }
     
     // Ana ekranı kapat
     const homeScreen = document.getElementById('homeScreen');
@@ -120,8 +136,7 @@ function unlockWithFingerprint() {
     
     const fingerprintIcon = document.querySelector('.fingerprint-icon');
     if (fingerprintIcon) {
-        fingerprintIcon.style.background = '#4CAF50';
-        fingerprintIcon.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        fingerprintIcon.classList.add('scanning');
         showToast("👆 Parmak izi taranıyor...");
         
         // 2 saniye animasyon
@@ -130,15 +145,19 @@ function unlockWithFingerprint() {
             
             // Animasyonu sıfırla
             setTimeout(() => {
-                fingerprintIcon.style.background = '';
-                fingerprintIcon.innerHTML = '<i class="fas fa-fingerprint"></i>';
+                fingerprintIcon.classList.remove('scanning');
                 fingerprintCooldown = false;
             }, 500);
         }, 2000);
     }
+    
+    // 3 saniye sonra cooldown'u kaldır
+    setTimeout(() => {
+        fingerprintCooldown = false;
+    }, 3000);
 }
 
-// ===== UYGULAMA YÖNETİMİ =====
+// ===== UYGULAMA AÇMA (BEYAZ EKRAN + ANİMASYON) =====
 function openApp(appId) {
     if (currentApp) return;
     
@@ -147,265 +166,123 @@ function openApp(appId) {
     
     // Tıklanan ikonu bul
     const clickedIcon = document.querySelector(`[data-app="${appId}"] .icon-circle`);
-    let iconRect = { top: 0, left: 0, width: 0, height: 0 };
+    let iconRect = { top: 0, left: 0, width: 60, height: 60 };
     
     if (clickedIcon) {
-        iconRect = clickedIcon.getBoundingClientRect();
+        const rect = clickedIcon.getBoundingClientRect();
+        iconRect = {
+            top: rect.top,
+            left: rect.left,
+            width: rect.width,
+            height: rect.height
+        };
     }
     
-    // App penceresini hazırla
-    const appWindow = document.getElementById('appWindow');
-    const appTitle = document.getElementById('appTitle');
-    const appContent = document.getElementById('appContent');
+    // 1. BEYAZ AÇILIŞ EKRANI OLUŞTUR
+    const openingOverlay = document.createElement('div');
+    openingOverlay.className = 'app-opening';
+    openingOverlay.style.position = 'fixed';
+    openingOverlay.style.top = `${iconRect.top}px`;
+    openingOverlay.style.left = `${iconRect.left}px`;
+    openingOverlay.style.width = `${iconRect.width}px`;
+    openingOverlay.style.height = `${iconRect.height}px`;
+    openingOverlay.style.backgroundColor = '#FFFFFF';
+    openingOverlay.style.borderRadius = '18px';
+    openingOverlay.style.zIndex = '999';
     
-    // Başlık ve içerik yükle
-    const appTitles = {
-        'settings': 'Ayarlar',
-        'camera': 'Kamera',
-        'messages': 'Mesajlar',
-        'phone': 'Telefon',
-        'chrome': 'Chrome',
-        'gallery': 'Galeri',
-        'music': 'Müzik',
-        'files': 'Dosyalar',
-        'calendar': 'Takvim',
-        'calculator': 'Hesap Makinesi',
-        'weather': 'Hava Durumu',
-        'notes': 'Notlar'
-    };
+    document.body.appendChild(openingOverlay);
     
-    appTitle.textContent = appTitles[appId] || appId;
-    
-    // İçerik yükle
-    const contentTemplate = document.getElementById(`${appId}Content`);
-    if (contentTemplate) {
-        appContent.innerHTML = contentTemplate.innerHTML;
+    // 2. ANİMASYON BAŞLAT
+    setTimeout(() => {
+        openingOverlay.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        openingOverlay.style.top = '0';
+        openingOverlay.style.left = '0';
+        openingOverlay.style.width = '100%';
+        openingOverlay.style.height = '100%';
+        openingOverlay.style.borderRadius = '0';
         
-        // Ayarlar için event listener'ları ekle
-        if (appId === 'settings') {
-            initSettingsApp();
-        }
-    } else {
-        appContent.innerHTML = `<div class="app-loading">
-            <h3>${appTitles[appId] || appId}</h3>
-            <p>Uygulama yükleniyor...</p>
-        </div>`;
-    }
-    
-    // Animasyonlu açılış
-    if (appAnimationEnabled && clickedIcon) {
-        // İkon pozisyonundan başlat
-        appWindow.style.position = 'fixed';
-        appWindow.style.top = `${iconRect.top}px`;
-        appWindow.style.left = `${iconRect.left}px`;
-        appWindow.style.width = `${iconRect.width}px`;
-        appWindow.style.height = `${iconRect.height}px`;
-        appWindow.style.borderRadius = '18px';
-        appWindow.style.transform = 'scale(1)';
-        appWindow.style.display = 'flex';
-        
-        // Tam ekrana animasyon
+        // 3. ANİMASYON BİTİNCE UYGULAMAYI AÇ
         setTimeout(() => {
-            appWindow.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-            appWindow.style.top = '0';
-            appWindow.style.left = '0';
-            appWindow.style.width = '100%';
-            appWindow.style.height = '100%';
-            appWindow.style.borderRadius = '0';
-            appWindow.classList.add('active');
-        }, 10);
-    } else {
-        // Normal açılış
-        appWindow.style.display = 'flex';
-        setTimeout(() => {
-            appWindow.classList.add('active');
-        }, 10);
-    }
-    
-    showToast(`${appTitles[appId] || appId} açılıyor...`);
+            // App penceresini hazırla
+            const appWindow = document.getElementById('appWindow');
+            const appTitle = document.getElementById('appTitle');
+            const appContent = document.getElementById('appContent');
+            
+            // Başlık ve içerik yükle
+            const appTitles = {
+                'settings': 'Ayarlar',
+                'camera': 'Kamera',
+                'messages': 'Mesajlar',
+                'phone': 'Telefon',
+                'chrome': 'Chrome',
+                'gallery': 'Galeri',
+                'music': 'Müzik',
+                'files': 'Dosyalar',
+                'calendar': 'Takvim',
+                'calculator': 'Hesap Makinesi',
+                'weather': 'Hava Durumu',
+                'notes': 'Notlar'
+            };
+            
+            appTitle.textContent = appTitles[appId] || appId;
+            
+            // İçerik yükle
+            const contentTemplate = document.getElementById(`${appId}Content`);
+            if (contentTemplate) {
+                appContent.innerHTML = contentTemplate.innerHTML;
+                
+                // Ayarlar için event listener'ları ekle
+                if (appId === 'settings') {
+                    initSettingsApp();
+                }
+                // Telefon için
+                if (appId === 'phone') {
+                    dialerNumber = '';
+                    updateDialerDisplay();
+                }
+            } else {
+                appContent.innerHTML = `<div class="app-page">
+                    <h3>${appTitles[appId] || appId}</h3>
+                    <p>Uygulama içeriği yükleniyor...</p>
+                </div>`;
+            }
+            
+            // App penceresini göster
+            appWindow.style.display = 'flex';
+            appWindow.style.opacity = '0';
+            
+            setTimeout(() => {
+                appWindow.style.opacity = '1';
+                appWindow.style.transition = 'opacity 0.3s ease';
+                
+                // Beyaz overlay'ı kaldır
+                setTimeout(() => {
+                    openingOverlay.remove();
+                    showToast(`${appTitles[appId] || appId} açıldı`);
+                }, 100);
+            }, 50);
+        }, 400); // Animasyon süresi
+    }, 10);
 }
 
+// ===== UYGULAMA KAPATMA (ANİMASYONLU) =====
 function closeApp() {
     if (!currentApp) return;
     
     console.log(`📱 ${currentApp} uygulaması kapatılıyor...`);
     
-    const appWindow = document.getElementById('appWindow');
+    // Tıklanan ikonu bul
+    const clickedIcon = document.querySelector(`[data-app="${currentApp}"] .icon-circle`);
+    let iconRect = { top: 0, left: 0, width: 60, height: 60 };
     
-    // Animasyonlu kapanış
-    if (appAnimationEnabled) {
-        appWindow.classList.remove('active');
-        
-        setTimeout(() => {
-            appWindow.style.display = 'none';
-            currentApp = null;
-        }, 300);
-    } else {
-        appWindow.style.display = 'none';
-        currentApp = null;
-    }
-}
-
-// ===== AYARLAR UYGULAMASI =====
-function initSettingsApp() {
-    console.log("⚙️ Ayarlar uygulaması başlatılıyor...");
-    
-    // Toggle'lar için event listener'lar
-    document.getElementById('wifiToggle').addEventListener('change', function() {
-        showToast(`Wi-Fi ${this.checked ? 'açıldı' : 'kapatıldı'}`);
-    });
-    
-    document.getElementById('bluetoothToggle').addEventListener('change', function() {
-        showToast(`Bluetooth ${this.checked ? 'açıldı' : 'kapatıldı'}`);
-    });
-    
-    document.getElementById('darkModeToggle').addEventListener('change', function() {
-        toggleTheme();
-    });
-    
-    document.getElementById('animationsToggle').addEventListener('change', function() {
-        appAnimationEnabled = this.checked;
-        showToast(`Animasyonlar ${this.checked ? 'açıldı' : 'kapatıldı'}`);
-    });
-    
-    document.getElementById('faceUnlockToggle').addEventListener('change', function() {
-        showToast(`Yüz tanıma ${this.checked ? 'açıldı' : 'kapatıldı'}`);
-    });
-}
-
-function toggleSetting(settingId) {
-    console.log(`⚙️ ${settingId} ayarı değiştiriliyor...`);
-    // Toggle işlemleri burada
-}
-
-function openThemeSelector() {
-    showToast("🎨 Tema seçici açılıyor...");
-    // Tema seçici implementasyonu
-}
-
-function showDeviceInfo() {
-    const deviceInfo = `
-        📱 TemreOS Beta V.03
-        📅 Derleme: ${new Date().toLocaleDateString('tr-TR')}
-        ⚡ İşlemci: Snapdragon 8 Gen 2
-        💾 Bellek: 12 GB RAM
-        💿 Depolama: 256 GB
-        🔋 Pil: %78
-    `;
-    showToast("📊 Cihaz bilgileri görüntüleniyor...");
-    alert(deviceInfo);
-}
-
-function checkForUpdates() {
-    showToast("🔄 Güncellemeler kontrol ediliyor...");
-    setTimeout(() => {
-        showToast("✅ Sistem güncel: TemreOS Beta V.03");
-    }, 1500);
-}
-
-// ===== TEMA YÖNETİMİ =====
-function loadTheme() {
-    const savedTheme = localStorage.getItem('temreos-theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    
-    // Toggle'ı güncelle
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    if (darkModeToggle) {
-        darkModeToggle.checked = savedTheme === 'dark';
-    }
-}
-
-function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('temreos-theme', newTheme);
-    
-    showToast(`🌓 ${newTheme === 'dark' ? 'Karanlık' : 'Aydınlık'} tema aktif`);
-}
-
-// ===== KAMERA UYGULAMASI =====
-function takePhoto() {
-    console.log("📸 Fotoğraf çekiliyor...");
-    
-    const shutter = document.querySelector('.shutter-circle');
-    if (shutter) {
-        shutter.style.transform = 'scale(0.8)';
-        shutter.style.transition = 'transform 0.1s';
-        
-        setTimeout(() => {
-            shutter.style.transform = 'scale(1)';
-        }, 100);
+    if (clickedIcon) {
+        const rect = clickedIcon.getBoundingClientRect();
+        iconRect = {
+            top: rect.top,
+            left: rect.left,
+            width: rect.width,
+            height: rect.height
+        };
     }
     
-    // Flaş efekti
-    const viewfinder = document.querySelector('.camera-viewfinder');
-    if (viewfinder) {
-        viewfinder.style.backgroundColor = 'white';
-        setTimeout(() => {
-            viewfinder.style.backgroundColor = '';
-            viewfinder.style.transition = 'background-color 0.3s';
-        }, 100);
-    }
-    
-    showToast("📸 Fotoğraf kaydedildi!");
-}
-
-// ===== TOAST NOTIFICATION =====
-function showToast(message) {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
-    
-    toast.textContent = message;
-    toast.classList.add('show');
-    
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
-}
-
-// ===== KAYDIRMA GESTURE'LARI =====
-function initSwipeGestures() {
-    const lockScreen = document.getElementById('lockScreen');
-    let startY = 0;
-    
-    lockScreen.addEventListener('touchstart', (e) => {
-        startY = e.touches[0].clientY;
-    });
-    
-    lockScreen.addEventListener('touchend', (e) => {
-        const endY = e.changedTouches[0].clientY;
-        const diff = startY - endY;
-        
-        if (diff > 50) { // Yukarı kaydırma
-            unlockPhone();
-        }
-    });
-    
-    // Mouse desteği
-    lockScreen.addEventListener('mousedown', (e) => {
-        startY = e.clientY;
-    });
-    
-    lockScreen.addEventListener('mouseup', (e) => {
-        const endY = e.clientY;
-        const diff = startY - endY;
-        
-        if (diff > 50) {
-            unlockPhone();
-        }
-    });
-}
-
-// ===== GLOBAL FONKSİYONLAR =====
-window.unlockWithFingerprint = unlockWithFingerprint;
-window.openApp = openApp;
-window.closeApp = closeApp;
-window.lockScreen = lockScreen;
-window.toggleTheme = toggleTheme;
-window.takePhoto = takePhoto;
-window.showDeviceInfo = showDeviceInfo;
-window.checkForUpdates = checkForUpdates;
-
-console.log("✨ TemreOS Beta V.03 başarıyla yüklendi!");
+    // 1. BEYAZ KAPANIŞ EKRANI OL
