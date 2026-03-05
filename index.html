@@ -1,381 +1,195 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="light">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TemreOS Beta V.04</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TemreOS</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- BOOT SCREEN 1: TemreOS + Android Logo -->
-    <div class="boot-screen boot-1" id="bootScreen1">
-        <div class="leaf-pattern"></div>
-        <div class="boot-content">
-            <div class="temreos-logo">
-                <h1 class="distorted-text">TemreOS</h1>
-                <p class="android-text">Android</p>
-            </div>
-            <div class="android-robot">
-                <svg viewBox="0 0 24 24" width="60" height="60">
-                    <path fill="#3DDC84" d="M6,18c0,0.55 0.45,1 1,1h1v3.5c0,0.83 0.67,1.5 1.5,1.5s1.5,-0.67 1.5,-1.5L11,19h2v3.5c0,0.83 0.67,1.5 1.5,1.5s1.5,-0.67 1.5,-1.5L16,19h1c0.55,0 1,-0.45 1,-1L18,8L6,8v10zM3.5,8C2.67,8 2,8.67 2,9.5v7c0,0.83 0.67,1.5 1.5,1.5S5,17.33 5,16.5v-7C5,8.67 4.33,8 3.5,8zM20.5,8c-0.83,0 -1.5,0.67 -1.5,1.5v7c0,0.83 0.67,1.5 1.5,1.5s1.5,-0.67 1.5,-1.5v-7c0,-0.83 -0.67,-1.5 -1.5,-1.5zM15.53,3.16l1.3,-1.3c0.2,-0.2 0.2,-0.51 0,-0.71 -0.2,-0.2 -0.51,-0.2 -0.71,0l-1.48,1.48C13.85,2.23 12.95,2 12,2c-0.96,0 -1.86,0.23 -2.66,0.63L7.85,1.15c-0.2,-0.2 -0.51,-0.2 -0.71,0 -0.2,0.2 -0.2,0.51 0,0.71l1.31,1.31C6.97,3.26 6,4.46 6,6c0,0.68 0.21,1.32 0.58,1.84C6.21,8.32 6,8.68 6,9v1h12V9c0,-0.32 -0.21,-0.68 -0.58,-0.84C17.79,7.32 18,6.68 18,6c0,-1.54 -0.97,-2.74 -2.47,-2.84zM10,5.5c0,0.83 -0.67,1.5 -1.5,1.5S7,6.33 7,5.5 7.67,4 8.5,4s1.5,0.67 1.5,1.5zM17,5.5c0,0.83 -0.67,1.5 -1.5,1.5s-1.5,-0.67 -1.5,-1.5S14.67,4 15.5,4s1.5,0.67 1.5,1.5z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-<div class="skip-boot" onclick="skipBoot()" style="
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(255,255,255,0.2);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    z-index: 100;
-">
-    ⏭️ Boot'u Atla
-</div>
-    
-    <!-- BOOT SCREEN 2: Made with hardwork -->
-    <div class="boot-screen boot-2" id="bootScreen2" style="display: none;">
-        <div class="leaf-pattern"></div>
-        <div class="boot-content">
-            <div class="credits">
-                <p class="made-by">Made with hardwork by</p>
-                <p class="tiktok">@temreostiktok</p>
-                <p class="ai-note">(bazı kısımlar AI) / (some parts are AI)</p>
-            </div>
-        </div>
-    </div>
-<div class="skip-boot" onclick="skipBoot()" style="
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(255,255,255,0.2);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    z-index: 100;
-">
-    ⏭️ Boot'u Atla
-</div>
-
-    <!-- LOCK SCREEN -->
-    <div class="lock-screen" id="lockScreen" style="display: none;">
+    <!-- Kilit Ekranı -->
+    <div class="lock-screen" id="lockScreen">
         <div class="status-bar">
-            <div class="status-time">00:00</div>
+            <span class="time">9:41</span>
             <div class="status-icons">
-                <i class="fas fa-signal"></i>
-                <i class="fas fa-wifi"></i>
-                <i class="fas fa-battery-full"></i>
+                <span class="signal">📶</span>
+                <span class="wifi">📡</span>
+                <span class="battery">🔋</span>
             </div>
         </div>
         
         <div class="lock-content">
-            <div class="lock-time" id="lockTime">00:00</div>
-            <div class="lock-date" id="lockDate">1 Ocak Pzt</div>
+            <h1 class="clock">09:41</h1>
+            <div class="date">2 Mart 2025, Pazar</div>
             
-            <div class="lock-bottom">
-                <div class="fingerprint-area" onclick="unlockWithFingerprint()">
-                    <div class="fingerprint-icon">
-                        <i class="fas fa-fingerprint"></i>
+            <div class="wallpaper-shape">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+            
+            <div class="lock-widgets">
+                <div class="widget weather-widget">
+                    <span class="widget-icon">☀️</span>
+                    <div class="widget-info">
+                        <span class="widget-label">Hava Durumu</span>
+                        <span class="widget-value">24°C</span>
                     </div>
-                    <div class="fingerprint-text">Parmak izi ile aç</div>
                 </div>
-                <div class="swipe-hint">
-                    <i class="fas fa-arrow-up"></i>
-                    Yukarı kaydırarak kilidi aç
+                <div class="widget calendar-widget">
+                    <span class="widget-icon">📅</span>
+                    <div class="widget-info">
+                        <span class="widget-label">Takvim</span>
+                        <span class="widget-value">Toplantı yok</span>
+                    </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="lock-footer">
+            <div class="lock-indicator"></div>
+            <span class="hint">yukarı kaydır</span>
         </div>
     </div>
 
-    <!-- HOME SCREEN -->
-    <div class="home-screen" id="homeScreen" style="display: none;">
-        <div class="status-bar">
-            <div class="status-left">
-                <span class="time">00:00</span>
-            </div>
-            <div class="status-right">
-                <i class="fas fa-signal"></i>
-                <i class="fas fa-wifi"></i>
-                <i class="fas fa-battery-full"></i>
+    <!-- Ana Ekran -->
+    <div class="home-screen" id="homeScreen">
+        <div class="status-bar dark">
+            <span class="time">9:41</span>
+            <div class="status-icons">
+                <span class="signal">📶</span>
+                <span class="wifi">📡</span>
+                <span class="battery">🔋</span>
             </div>
         </div>
-
-        <div class="home-content">
-            <!-- App Grid -->
-            <div class="app-grid">
-                <!-- Row 1 -->
-                <div class="app-icon" data-app="settings" onclick="openApp('settings')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #4285f4, #34a853);">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                    <span class="app-name">Ayarlar</span>
+        
+        <!-- Uygulama Izgarası -->
+        <div class="app-grid">
+            <!-- Satır 1 -->
+            <div class="app-icon" data-app="phone">
+                <div class="icon-bg">
+                    <span class="icon-emoji">📞</span>
                 </div>
-                
-                <div class="app-icon" data-app="camera" onclick="openApp('camera')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #ea4335, #fbbc05);">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <span class="app-name">Kamera</span>
+                <span class="app-name">Telefon</span>
+            </div>
+            
+            <div class="app-icon" data-app="messages">
+                <div class="icon-bg">
+                    <span class="icon-emoji">💬</span>
                 </div>
-                
-                <div class="app-icon" data-app="messages" onclick="openApp('messages')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #34a853, #4285f4);">
-                        <i class="fas fa-comment-alt"></i>
-                    </div>
-                    <span class="app-name">Mesajlar</span>
+                <span class="app-name">Mesajlar</span>
+            </div>
+            
+            <div class="app-icon" data-app="chrome">
+                <div class="icon-bg">
+                    <span class="icon-emoji">🌐</span>
                 </div>
-                
-                <div class="app-icon" data-app="phone" onclick="openApp('phone')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #fbbc05, #ea4335);">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <span class="app-name">Telefon</span>
+                <span class="app-name">Chrome</span>
+            </div>
+            
+            <div class="app-icon" data-app="camera">
+                <div class="icon-bg">
+                    <span class="icon-emoji">📷</span>
                 </div>
-
-                <!-- Row 2 -->
-                <div class="app-icon" data-app="chrome" onclick="openApp('chrome')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #4285f4, #0d47a1);">
-                        <i class="fab fa-chrome"></i>
-                    </div>
-                    <span class="app-name">Chrome</span>
+                <span class="app-name">Kamera</span>
+            </div>
+            
+            <!-- Satır 2 -->
+            <div class="app-icon" data-app="termux">
+                <div class="icon-bg termux-bg">
+                    <span class="icon-emoji">⌨️</span>
                 </div>
-                
-                <div class="app-icon" data-app="gallery" onclick="openApp('gallery')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #9c27b0, #673ab7);">
-                        <i class="fas fa-images"></i>
-                    </div>
-                    <span class="app-name">Galeri</span>
+                <span class="app-name">Termux</span>
+            </div>
+            
+            <div class="app-icon" data-app="nvidia">
+                <div class="icon-bg nvidia-bg">
+                    <span class="icon-emoji">🎮</span>
                 </div>
-                
-                <div class="app-icon" data-app="music" onclick="openApp('music')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #ff5722, #ff9800);">
-                        <i class="fas fa-music"></i>
-                    </div>
-                    <span class="app-name">Müzik</span>
+                <span class="app-name">Nvidia</span>
+            </div>
+            
+            <div class="app-icon" data-app="zarchiver">
+                <div class="icon-bg zarchiver-bg">
+                    <span class="icon-emoji">📦</span>
                 </div>
-                
-                <div class="app-icon" data-app="files" onclick="openApp('files')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #795548, #8d6e63);">
-                        <i class="fas fa-folder"></i>
-                    </div>
-                    <span class="app-name">Dosyalar</span>
+                <span class="app-name">ZArchiver</span>
+            </div>
+            
+            <div class="app-icon" data-app="spotify">
+                <div class="icon-bg spotify-bg">
+                    <span class="icon-emoji">🎵</span>
                 </div>
-
-                <!-- Row 3 -->
-                <div class="app-icon" data-app="calendar" onclick="openApp('calendar')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #2196f3, #03a9f4);">
-                        <i class="fas fa-calendar"></i>
-                    </div>
-                    <span class="app-name">Takvim</span>
+                <span class="app-name">Spotify</span>
+            </div>
+            
+            <!-- Satır 3 -->
+            <div class="app-icon" data-app="whatsapp">
+                <div class="icon-bg whatsapp-bg">
+                    <span class="icon-emoji">💚</span>
                 </div>
-                
-                <div class="app-icon" data-app="calculator" onclick="openApp('calculator')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #607d8b, #78909c);">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <span class="app-name">Hesap Mak.</span>
+                <span class="app-name">WhatsApp</span>
+            </div>
+            
+            <div class="app-icon" data-app="instagram">
+                <div class="icon-bg instagram-bg">
+                    <span class="icon-emoji">📸</span>
                 </div>
-                
-                <div class="app-icon" data-app="weather" onclick="openApp('weather')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #00bcd4, #0097a7);">
-                        <i class="fas fa-cloud-sun"></i>
-                    </div>
-                    <span class="app-name">Hava Durumu</span>
+                <span class="app-name">Instagram</span>
+            </div>
+            
+            <div class="app-icon" data-app="settings">
+                <div class="icon-bg">
+                    <span class="icon-emoji">⚙️</span>
                 </div>
-                
-                <div class="app-icon" data-app="notes" onclick="openApp('notes')">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #ffeb3b, #fbc02d);">
-                        <i class="fas fa-sticky-note"></i>
-                    </div>
-                    <span class="app-name">Notlar</span>
+                <span class="app-name">Ayarlar</span>
+            </div>
+            
+            <div class="app-icon" data-app="files">
+                <div class="icon-bg">
+                    <span class="icon-emoji">📁</span>
+                </div>
+                <span class="app-name">Dosyalar</span>
+            </div>
+        </div>
+        
+        <!-- Dock -->
+        <div class="dock">
+            <div class="app-icon" data-app="phone">
+                <div class="icon-bg">
+                    <span class="icon-emoji">📞</span>
                 </div>
             </div>
-
-            <!-- Dock -->
-            <div class="app-dock">
-                <div class="dock-icon" onclick="openApp('phone')">
-                    <i class="fas fa-phone"></i>
+            
+            <div class="app-icon" data-app="messages">
+                <div class="icon-bg">
+                    <span class="icon-emoji">💬</span>
                 </div>
-                <div class="dock-icon" onclick="openApp('messages')">
-                    <i class="fas fa-comment-alt"></i>
+            </div>
+            
+            <div class="app-icon" data-app="chrome">
+                <div class="icon-bg">
+                    <span class="icon-emoji">🌐</span>
                 </div>
-                <div class="dock-icon" onclick="openApp('camera')">
-                    <i class="fas fa-camera"></i>
-                </div>
-                <div class="dock-icon" onclick="openApp('browser')">
-                    <i class="fas fa-globe"></i>
+            </div>
+            
+            <div class="app-icon" data-app="camera">
+                <div class="icon-bg">
+                    <span class="icon-emoji">📷</span>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- APP WINDOW -->
-    <div class="app-window" id="appWindow" style="display: none;">
-        <div class="app-header">
-            <button class="back-btn" onclick="closeApp()">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h3 class="app-title" id="appTitle">Uygulama</h3>
-            <div class="app-actions">
-                <i class="fas fa-ellipsis-v"></i>
-            </div>
-        </div>
-        <div class="app-content" id="appContent">
-            <!-- App content will be loaded here -->
+        
+        <!-- Sayfa İndikatörü -->
+        <div class="page-indicator">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
         </div>
     </div>
-
-    <!-- APP CONTENT TEMPLATES -->
-    <!-- Settings -->
-    <div id="settingsContent" style="display: none;">
-        <div class="settings-container">
-            <div class="settings-header">
-                <h2><i class="fas fa-cog"></i> Ayarlar</h2>
-                <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Ayarlarda ara" id="settingsSearch">
-                </div>
-            </div>
-
-            <div class="settings-categories">
-                <div class="settings-section">
-                    <h3><i class="fas fa-wifi"></i> Bağlantı</h3>
-                    <div class="settings-item toggle" onclick="toggleSetting('wifi')">
-                        <div class="item-info">
-                            <i class="fas fa-wifi"></i>
-                            <div>
-                                <strong>Wi-Fi</strong>
-                                <small>Bağlı: HomeWiFi</small>
-                            </div>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="wifiToggle" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    
-                    <div class="settings-item toggle" onclick="toggleSetting('bluetooth')">
-                        <div class="item-info">
-                            <i class="fas fa-bluetooth"></i>
-                            <div>
-                                <strong>Bluetooth</strong>
-                                <small>Kapalı</small>
-                            </div>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="bluetoothToggle">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="settings-section">
-                    <h3><i class="fas fa-palette"></i> Görünüm</h3>
-                    <div class="settings-item toggle" onclick="toggleSetting('darkMode')">
-                        <div class="item-info">
-                            <i class="fas fa-moon"></i>
-                            <div>
-                                <strong>Karanlık Mod</strong>
-                                <small>Gün batımında aç</small>
-                            </div>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="darkModeToggle">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="settings-section">
-                    <h3><i class="fas fa-info-circle"></i> Cihaz Hakkında</h3>
-                    <div class="settings-item info" onclick="showDeviceInfo()">
-                        <div class="item-info">
-                            <i class="fas fa-mobile-alt"></i>
-                            <div>
-                                <strong>TemreOS Beta V.04</strong>
-                                <small>Son güncelleme: Bugün</small>
-                            </div>
-                        </div>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Camera -->
-    <div id="cameraContent" style="display: none;">
-        <div class="app-page">
-            <div class="camera-preview">
-                <div class="viewfinder"></div>
-                <button class="shutter-btn" onclick="takePhoto()">
-                    <div class="shutter-circle"></div>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Messages -->
-    <div id="messagesContent" style="display: none;">
-        <div class="app-page">
-            <div class="messages-list">
-                <div class="message-item new" onclick="openChat(1)">
-                    <div class="message-avatar">A</div>
-                    <div class="message-info">
-                        <strong>Ahmet</strong>
-                        <p>Naber, nasılsın?</p>
-                    </div>
-                    <span class="message-time">11:30</span>
-                </div>
-                <div class="message-item" onclick="openChat(2)">
-                    <div class="message-avatar">M</div>
-                    <div class="message-info">
-                        <strong>Mehmet</strong>
-                        <p>Toplantı 3'te</p>
-                    </div>
-                    <span class="message-time">10:15</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Phone -->
-    <div id="phoneContent" style="display: none;">
-        <div class="app-page">
-            <div class="dialer">
-                <div class="dialer-display" id="dialerDisplay"></div>
-                <div class="dialer-pad">
-                    <button class="dialer-btn" onclick="dialNumber('1')">1</button>
-                    <button class="dialer-btn" onclick="dialNumber('2')">2</button>
-                    <button class="dialer-btn" onclick="dialNumber('3')">3</button>
-                    <button class="dialer-btn" onclick="dialNumber('4')">4</button>
-                    <button class="dialer-btn" onclick="dialNumber('5')">5</button>
-                    <button class="dialer-btn" onclick="dialNumber('6')">6</button>
-                    <button class="dialer-btn" onclick="dialNumber('7')">7</button>
-                    <button class="dialer-btn" onclick="dialNumber('8')">8</button>
-                    <button class="dialer-btn" onclick="dialNumber('9')">9</button>
-                    <button class="dialer-btn" onclick="dialNumber('*')">*</button>
-                    <button class="dialer-btn" onclick="dialNumber('0')">0</button>
-                    <button class="dialer-btn" onclick="dialNumber('#')">#</button>
-                </div>
-                <button class="call-btn" onclick="makeCall()">
-                    <i class="fas fa-phone"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- TOAST -->
-    <div class="toast" id="toast"></div>
 
     <script src="script.js"></script>
 </body>
-            </html>
+    </html>
